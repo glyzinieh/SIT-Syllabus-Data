@@ -1,4 +1,5 @@
 import json
+import os
 import sys
 
 from .syllabus import fetch_matrix_html_by_department, parse_subject_matrix_table
@@ -57,11 +58,12 @@ def download_timetable(
     if save_path is None:
         save_path = f"./data/{admission_year}/{department}.json"
 
-    try:
-        with open(save_path, "r", encoding="utf-8") as f:
-            subjects = json.load(f)
-    except FileNotFoundError:
+    if not os.path.exists(save_path):
         print(f"File not found: {save_path}", file=sys.stderr)
+        return
+
+    with open(save_path, "r", encoding="utf-8") as f:
+        subjects = json.load(f)
 
     subjects = integrate_timetable_to_syllabus(
         subjects, year, department, grade, semester_code
