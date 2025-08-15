@@ -5,6 +5,22 @@ import sys
 from .syllabus import fetch_matrix_html_by_department, parse_subject_matrix_table
 from .timetable import fetch_timetable_html, parse_timetable_html
 
+from .utils import Map
+
+DEPARTMENT_CODE_MAP = Map(
+    {
+        "AA": "工学部 機械工学課程 基幹機械コース",
+        "AB": "工学部 機械工学課程 先進機械コース",
+        "AC": "工学部 物質化学課程 環境・物質工学コース",
+        "AD": "工学部 物質化学課程 化学・生命工学コース",
+        "AE": "工学部 電気電子工学課程 電気・ロボット工学コース",
+        "AG": "工学部 電気電子工学課程 先進電子工学コース",
+        "AF": "工学部 情報・通信工学課程 情報通信コース",
+        "AL": "工学部 情報・通信工学課程 情報工学コース",
+        "AH": "工学部 土木工学課程 都市・環境コース",
+    }
+)
+
 
 def integrate_timetable_to_syllabus(
     subjects: list[dict], year: int, department: str, grade: int, semester_code: int
@@ -40,11 +56,20 @@ def download_syllabus(
     html = fetch_matrix_html_by_department(admission_year, department)
     subjects = parse_subject_matrix_table(html)
 
+    department_code = department.upper()
+
+    data = {
+        "departmentCode": department_code,
+        "department": DEPARTMENT_CODE_MAP.get(department_code),
+        "admissionYear": admission_year,
+        "courses": subjects,
+    }
+
     if save_path is None:
         save_path = f"./data/{admission_year}/{department}.json"
 
     with open(save_path, "w", encoding="utf-8") as f:
-        json.dump(subjects, f, ensure_ascii=False, indent=4)
+        json.dump(data, f, ensure_ascii=False, indent=4)
 
 
 def download_timetable(
@@ -63,11 +88,14 @@ def download_timetable(
         return
 
     with open(save_path, "r", encoding="utf-8") as f:
-        subjects = json.load(f)
+        data = json.load(f)
+        subjects = data.get("courses", [])
 
     subjects = integrate_timetable_to_syllabus(
         subjects, year, department, grade, semester_code
     )
 
+    data["courses"] = subjects
+
     with open(save_path, "w", encoding="utf-8") as f:
-        json.dump(subjects, f, ensure_ascii=False, indent=4)
+        json.dump(data, f, ensure_ascii=False, indent=4)
