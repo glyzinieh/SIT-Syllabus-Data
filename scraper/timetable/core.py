@@ -1,7 +1,7 @@
+import sys
 import time
 
 from bs4 import BeautifulSoup
-from bs4.element import Tag
 from selenium import webdriver
 
 from ..utils import Map
@@ -89,15 +89,18 @@ def parse_timetable_html(html: str) -> list[dict]:
 
         rows = timetable_table.select("tr")
         for row in rows[2:]:
-            columns = row.select("td#Dummy,td#Subject")
-            index = 0
-            period = 1
-            while index < len(columns):
-                column = columns[index]
-                class_table = column.select_one("table")
+            classes = row.select("td#Subject")
+
+            for class_ in classes:
+                try:
+                    period = int(str(class_.get("row"))) + 1
+                except (ValueError, TypeError):
+                    period = None
+                    print(f"Error parsing period for class: {class_}", file=sys.stderr)
+
+                class_table = class_.select_one("table")
                 if not class_table:
-                    index += 1
-                    period += 1
+                    print(f"Class table not found for class: {class_}", file=sys.stderr)
                     continue
 
                 class_rows = class_table.select("tr")
@@ -125,8 +128,14 @@ def parse_timetable_html(html: str) -> list[dict]:
                         },
                     }
 
+                if period is None:
+                    classes_map[class_key]["details"]["weeklySlots"].append(
+                        {"day": jp_day, "period": None}
+                    )
+                    continue
+
                 try:
-                    colspan = int(str(column.get("colspan", "1")))
+                    colspan = int(str(class_.get("colspan", "1")))
                 except (ValueError, TypeError):
                     colspan = 1
 
@@ -135,13 +144,9 @@ def parse_timetable_html(html: str) -> list[dict]:
                         classes_map[class_key]["details"]["weeklySlots"].append(
                             {"day": jp_day, "period": period + i}
                         )
-                    period += colspan
                 else:
                     classes_map[class_key]["details"]["weeklySlots"].append(
                         {"day": jp_day, "period": period}
                     )
-                    period += 1
-
-                index += 1
 
     return [*classes_map.values()]
