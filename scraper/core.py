@@ -66,7 +66,7 @@ def download_syllabus(
     }
 
     if save_path is None:
-        save_path = f"./data/{admission_year}/{department}.json"
+        save_path = f"./data/{admission_year}/{department.lower()}.json"
 
     with open(save_path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
@@ -81,7 +81,7 @@ def download_timetable(
     save_path: str | None = None,
 ) -> None:
     if save_path is None:
-        save_path = f"./data/{admission_year}/{department}.json"
+        save_path = f"./data/{admission_year}/{department.lower()}.json"
 
     if not os.path.exists(save_path):
         print(f"File not found: {save_path}", file=sys.stderr)
