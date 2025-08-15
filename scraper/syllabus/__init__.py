@@ -1,0 +1,1 @@
+from .core import fetch_matrix_html_by_department, parse_subject_matrix_table
