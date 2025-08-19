@@ -5701,5 +5701,133 @@
             "year": 2025,
             "semester": "春学期"
         }
+    ],
+    "requirements": [
+        {
+            "requirementName": "3年次への進級条件",
+            "totalCredits": 62
+        },
+        {
+            "requirementName": "4年次科目「卒業研究3」への着手条件",
+            "totalCredits": 110,
+            "seriesCredits": [
+                {
+                    "seriesName": "自コース専門",
+                    "credits": 52
+                }
+            ],
+            "courses": [
+                {
+                    "courseCode": "L0048000"
+                }
+            ]
+        },
+        {
+            "requirementName": "卒業要件",
+            "totalCredits": 124,
+            "seriesCredits": [
+                {
+                    "seriesName": "数理基礎",
+                    "credits": 14
+                },
+                {
+                    "seriesName": "英語",
+                    "credits": 10
+                },
+                {
+                    "seriesName": "人文社会系教養",
+                    "credits": 6
+                },
+                {
+                    "seriesName": "体育健康",
+                    "credits": 1
+                },
+                {
+                    "seriesName": "共通専門",
+                    "credits": 2
+                },
+                {
+                    "seriesName": "自コース専門",
+                    "credits": 66
+                }
+            ],
+            "courses": [
+                {
+                    "courseCode": "11731100"
+                },
+                {
+                    "courseCode": "11731120"
+                },
+                {
+                    "courseCode": "11731150"
+                },
+                {
+                    "courseCode": "11732100"
+                },
+                {
+                    "courseCode": "11733110"
+                },
+                {
+                    "courseCode": "11810100"
+                },
+                {
+                    "courseCode": "11810120"
+                },
+                {
+                    "courseCode": "11772100"
+                },
+                {
+                    "courseCode": "EN830100"
+                },
+                {
+                    "courseCode": "EN830110"
+                },
+                {
+                    "courseCode": "L0001000"
+                },
+                {
+                    "courseCode": "L0002000"
+                },
+                {
+                    "courseCode": "L0003000"
+                },
+                {
+                    "courseCode": "L0004000"
+                },
+                {
+                    "courseCode": "L0005000"
+                },
+                {
+                    "courseCode": "L0006000"
+                },
+                {
+                    "courseCode": "L0009000"
+                },
+                {
+                    "courseCode": "L0010000"
+                },
+                {
+                    "courseCode": "L0011000"
+                },
+                {
+                    "courseCode": "L0016000"
+                },
+                {
+                    "courseCode": "L0017000"
+                },
+                {
+                    "courseCode": "L0047000"
+                },
+                {
+                    "courseCode": "L0048000"
+                },
+                {
+                    "courseCode": "L0049000"
+                },
+                {
+                    "courseCode": "L0050000"
+                }
+            ]
+        }
     ]
 }
