@@ -4,8 +4,8 @@
 
 ## ファイル構成・命名規則
 
-- データは `data/[入学年度]/[学科].json` などにまとめて格納します。
-- 例: `data/2025/AL.json`
+- データは `data/[入学年度]/[学科].json` に格納します。
+- 例: `data/2025/al.json`
 
 ## JSONフォーマット例
 
@@ -87,4 +87,31 @@
         }
     ]
 }
+```
+
+## データ作成の手順
+
+### 環境構築
+
+```
+$ cd scraper
+$ py -m venv env
+$ .\env\Scripts\activate
+$ pip install -r requirements.txt
+```
+
+### シラバスの取得
+
+```
+$ py -m scraper syllabus
+```
+
+### 各種要件の入力
+
+学修の手引きから各種要件を転記する。
+
+### 時間割の取得
+
+```
+$ py -m scraper timetable
 ```
