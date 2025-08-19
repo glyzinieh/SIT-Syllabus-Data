@@ -4,7 +4,6 @@ import sys
 
 from .syllabus import fetch_matrix_html_by_department, parse_subject_matrix_table
 from .timetable import fetch_timetable_html, parse_timetable_html
-
 from .utils import Map
 
 DEPARTMENT_CODE_MAP = Map(
@@ -21,10 +20,19 @@ DEPARTMENT_CODE_MAP = Map(
     }
 )
 
+SEMESTER_CODE_MAP = Map(
+    {
+        "1": "春学期",
+        "2": "秋学期",
+    }
+)
+
 
 def integrate_timetable_to_syllabus(
     subjects: list[dict], year: int, department: str, grade: int, semester_code: int
 ) -> list[dict]:
+    semester = SEMESTER_CODE_MAP.get(str(semester_code))
+
     timetable_html = fetch_timetable_html(year, department, grade, semester_code)
     timetable = parse_timetable_html(timetable_html)
 
@@ -44,8 +52,10 @@ def integrate_timetable_to_syllabus(
         if "classes" not in subjects[index]:
             subjects[index]["classes"] = {}
         if str(year) not in subjects[index]["classes"]:
-            subjects[index]["classes"][str(year)] = []
-        subjects[index]["classes"][str(year)].append(class_["details"])
+            subjects[index]["classes"][str(year)] = {}
+        if semester not in subjects[index]["classes"][str(year)]:
+            subjects[index]["classes"][str(year)][semester] = []
+        subjects[index]["classes"][str(year)][semester].append(class_["details"])
 
     return subjects
 
@@ -93,6 +103,18 @@ def download_timetable(
 
     subjects = integrate_timetable_to_syllabus(
         subjects, year, department, grade, semester_code
+    )
+
+    semester = SEMESTER_CODE_MAP.get(str(semester_code))
+
+    if "timetables" not in data:
+        data["timetables"] = []
+
+    data["timetables"].append(
+        {
+            "year": year,
+            "semester": semester,
+        }
     )
 
     data["courses"] = subjects
