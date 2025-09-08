@@ -1,5 +1,9 @@
 # SIT-Syllabus-Data
 
+> [!NOTE]
+> ドキュメントを整備中です。
+> 不明な点は [wisteriatp@gmail.com](mailto:wisteriatp@gmail.com) までお問い合わせください。
+
 本リポジトリは、芝浦工業大学のシラバスデータをJSON形式で管理するためのものです。
 
 ## ファイル構成・命名規則
