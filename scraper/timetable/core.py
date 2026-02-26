@@ -6,14 +6,15 @@ from selenium import webdriver
 
 from ..utils import Map
 
-TIMETABLE_URL = "http://timetable.sic.shibaura-it.ac.jp/table/{year}/Timetable{faculty_code}{department_code}{semester_code}{grade}.html"
+TIMETABLE_URL = "http://timetable.sic.shibaura-it.ac.jp/table/{year}/Timetable{faculty_code}{department_code}{semester_code}{grade}{department_code2}.html"
 
 FACULTY_CODE_MAP = Map(
     {
         # 工学部
-        "A": 1
+        "A": 1,
         # システム理工学部(非対応)
-        # デザイン工学部(非対応)
+        # デザイン工学部
+        "C": 4,
         # 建築学部(非対応)
         # 大学院理工学研究科修士課程(非対応)
         # 大学院理工学研究科博士(後期)課程(非対応)
@@ -38,7 +39,38 @@ DEPARTMENT_CODE_MAP = Map(
         # 土木工学課程
         "AH": "HH0",  # 都市・環境コース
         # システム理工学部(非対応)
-        # デザイン工学部(非対応)
+        # デザイン工学部
+        "CY0": "Y00", # 社会情報システムコース
+        "CY1": "Y00", # UXコース
+        "CY2": "Y00", # プロダクトコース
+        # 建築学部(非対応)
+        # 大学院理工学研究科修士課程(非対応)
+        # 大学院理工学研究科博士(後期)課程(非対応)
+    }
+)
+
+DEPARTMENT_CODE2_MAP = Map(
+    {
+        # 工学部
+        # 機械工学課程
+        "AA": "",  # 基幹機械コース
+        "AB": "",  # 先進機械コース
+        # 物質化学課程
+        "AC": "",  # 環境・物質工学コース
+        "AD": "",  # 化学・生命工学コース
+        # 電気電子工学課程
+        "AE": "",  # 電気・ロボット工学コース
+        "AG": "",  # 先端電子工学コース
+        # 情報・通信工学課程
+        "AF": "",  # 情報通信コース
+        "AL": "",  # 情報工学コース
+        # 土木工学課程
+        "AH": "",  # 都市・環境コース
+        # システム理工学部(非対応)
+        # デザイン工学部
+        "CY0": "G", # 社会情報システムコース
+        "CY1": "H", # UXコース
+        "CY2": "J", # プロダクトコース
         # 建築学部(非対応)
         # 大学院理工学研究科修士課程(非対応)
         # 大学院理工学研究科博士(後期)課程(非対応)
