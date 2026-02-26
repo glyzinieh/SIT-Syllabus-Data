@@ -1,0 +1,14 @@
+[
+    {
+        "path": "2025/cy1.json",
+        "departmentCode": "CY1",
+        "department": "デザイン工学部 UXコース",
+        "admissionYear": 2025
+    },
+    {
+        "path": "2025/al.json",
+        "departmentCode": "AL",
+        "department": "工学部 情報・通信工学課程 情報工学コース",
+        "admissionYear": 2025
+    }
+]
